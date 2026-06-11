@@ -1,0 +1,9 @@
+import type { Metadata } from "next";
+import Image from "next/image";
+import { notFound } from "next/navigation";
+import { ProductGrid } from "@/components/product-grid";
+import { collections, getCollection, products } from "@/lib/catalog";
+
+export function generateStaticParams() { return collections.map(({ slug }) => ({ slug })); }
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> { const { slug } = await params; const collection = getCollection(slug); return collection ? { title: collection.name, description: collection.description } : {}; }
+export default async function CollectionPage({ params }: { params: Promise<{ slug: string }> }) { const { slug } = await params; const collection = getCollection(slug); if (!collection) notFound(); const collectionProducts = products.filter((product) => product.collections.includes(slug) || (slug === "kids" && ["Baby", "Kids"].includes(product.category))); return <><section className="relative min-h-[48vh] overflow-hidden"><Image src={collection.image} alt="" fill priority sizes="100vw" className="object-cover" /><div className="absolute inset-0 bg-gradient-to-t from-ink/65 via-ink/10 to-transparent" /><div className="page-shell relative flex min-h-[48vh] items-end pb-10 text-cream"><div><p className="eyebrow">RST collection</p><h1 className="mt-3 font-display text-5xl sm:text-7xl">{collection.name}</h1><p className="mt-3 max-w-lg text-sm text-cream/80">{collection.description}</p></div></div></section><div className="page-shell py-12 sm:py-20"><ProductGrid initialProducts={collectionProducts} /></div></>; }
