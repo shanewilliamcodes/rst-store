@@ -1,0 +1,2 @@
+import Link from "next/link";
+export default function NotFound(){return <div className="page-shell flex min-h-[60vh] flex-col items-center justify-center py-20 text-center"><p className="eyebrow text-ink/50">404 · Off the clothesline</p><h1 className="mt-4 font-display text-6xl">That soft thing isn&apos;t here.</h1><p className="mt-4 text-sm text-ink/60">Let&apos;s get you back somewhere comfortable.</p><Link href="/shop" className="button-primary mt-8">Shop all</Link></div>}
