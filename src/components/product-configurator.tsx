@@ -1,42 +1,29 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { Check, HeartHandshake, Minus, Plus } from "lucide-react";
 import { formatPrice, type Product } from "@/lib/catalog";
 import { siteConfig } from "@/lib/constants";
-import { SignatureIcon } from "./signature-icon";
 import { TeeMockup } from "./tee-mockup";
 import { useCart } from "./cart-provider";
-
-export function ProductPreview({ product, color }: { product: Product; color: string }) {
-  const selected = product.colors.find((item) => item.name === color) ?? product.colors[0];
-  return (
-    <div className="relative flex aspect-[4/5] items-center justify-center overflow-hidden rounded-sm bg-oatmeal/25 p-6 sm:p-10">
-      <TeeMockup key={selected.hex} color={selected.hex} accent={product.accent} detailType={product.detailType} snaps={product.snaps} className="h-full w-full animate-[fadeIn_.35s_ease]" />
-      <span className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-cream/90 px-4 py-1.5 text-[.62rem] font-bold uppercase tracking-[.14em] text-ink/70">{product.shortName} · {selected.name}</span>
-    </div>
-  );
-}
 
 export function ProductConfigurator({ product }: { product: Product }) {
   const [color, setColor] = useState(product.colors[0].name);
   const [size, setSize] = useState(product.sizes[0]);
   const [quantity, setQuantity] = useState(1);
   const { addItem } = useCart();
+  const selected = product.colors.find((item) => item.name === color) ?? product.colors[0];
 
   return (
     <div className="grid gap-8 lg:grid-cols-[1.15fr_.85fr] lg:gap-16">
       <div className="grid gap-3 sm:grid-cols-2">
-        <div className="sm:col-span-2 lg:sticky lg:top-28 lg:self-start">
-          <ProductPreview product={product} color={color} />
-          <p className="mt-3 text-center text-xs text-ink/50">Live preview — switch colors to see your exact tee.</p>
+        <div className="relative aspect-[4/5] overflow-hidden rounded-sm bg-oatmeal/25 sm:col-span-2">
+          <Image src={product.image} alt={`${product.name} with its embroidered RST signature detail`} fill priority sizes="(max-width:1024px) 100vw, 60vw" className="object-cover" style={{ objectPosition: product.imagePosition ?? "center" }} />
         </div>
-        <div className="flex aspect-square items-center justify-center bg-oatmeal/22 p-8">
-          <div className="text-center">
-            <SignatureIcon type={product.detailType} color={product.accent} className="mx-auto h-9 w-9" />
-            <p className="mt-5 font-display text-3xl">The signature.</p>
-            <p className="mt-3 text-xs leading-5 text-ink/55">{product.signatureDetail}</p>
-          </div>
+        <div className="relative flex aspect-square items-center justify-center overflow-hidden rounded-sm bg-oatmeal/22 p-5 sm:p-7">
+          <TeeMockup key={selected.hex} color={selected.hex} accent={product.accent} detailType={product.detailType} snaps={product.snaps} className="h-full w-full animate-[fadeIn_.35s_ease]" />
+          <span className="absolute bottom-3 left-1/2 w-max max-w-full -translate-x-1/2 rounded-full bg-cream/90 px-3 py-1.5 text-[.6rem] font-bold uppercase tracking-[.13em] text-ink/70">Color preview · {selected.name}</span>
         </div>
         <div className="flex aspect-square items-center justify-center bg-sage/15 p-8">
           <div className="text-center">

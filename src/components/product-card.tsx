@@ -1,12 +1,13 @@
+import Image from "next/image";
 import Link from "next/link";
 import { formatPrice, type Product } from "@/lib/catalog";
-import { TeeMockup } from "./tee-mockup";
 
-export function ProductCard({ product }: { product: Product; priority?: boolean }) {
+export function ProductCard({ product, priority = false }: { product: Product; priority?: boolean }) {
   return (
     <article className="group">
-      <Link href={`/products/${product.slug}`} className="relative block aspect-[4/5] overflow-hidden rounded-sm bg-oatmeal/25 p-4 sm:p-6">
-        <TeeMockup color={product.colors[0].hex} accent={product.accent} detailType={product.detailType} snaps={product.snaps} className="h-full w-full transition duration-700 ease-out group-hover:scale-[1.04]" />
+      <Link href={`/products/${product.slug}`} className="relative block aspect-[4/5] overflow-hidden rounded-sm bg-oatmeal/25">
+        <Image src={product.image} alt={`${product.name} with its embroidered RST signature detail`} fill priority={priority} sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw" className="object-cover transition duration-700 ease-out group-hover:scale-[1.025]" style={{ objectPosition: product.imagePosition ?? "center" }} />
+        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-ink/15 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
         {product.badge && <span className="absolute left-3 top-3 rounded-full bg-cream/95 px-3 py-1.5 text-[0.62rem] font-bold uppercase tracking-[0.14em]">{product.badge}</span>}
         <span className="absolute bottom-3 left-3 right-3 translate-y-2 rounded-sm bg-cream/95 py-3 text-center text-xs font-bold uppercase tracking-[0.14em] opacity-0 shadow-lg transition duration-300 group-hover:translate-y-0 group-hover:opacity-100">Choose your soft</span>
       </Link>

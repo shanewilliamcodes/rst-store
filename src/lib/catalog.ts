@@ -15,6 +15,9 @@ export type Product = {
   details: string[];
   fit: string;
   fabric: string;
+  image: string;
+  detailImage: string;
+  imagePosition?: string;
   colors: ProductColor[];
   sizes: string[];
   badge?: string;
@@ -52,6 +55,8 @@ export const products: Product[] = [
     ],
     fit: "Intentionally oversized with room through the body and a softly dropped shoulder.",
     fabric: "100% long-staple combed cotton, 6.5 oz.",
+    image: "/images/mom-tee.png",
+    detailImage: "/images/rst-details-packaging.png",
     colors: [colors.cream, colors.oatmeal, colors.sand, colors.taupe, colors.gray, colors.black],
     sizes: ["XS", "S", "M", "L", "XL", "2XL", "3XL"],
     badge: "The first drop",
@@ -77,6 +82,8 @@ export const products: Product[] = [
     ],
     fit: "Relaxed through the chest and body with a clean, dependable neckline.",
     fabric: "100% long-staple combed cotton, 6.5 oz.",
+    image: "/images/dad-tee.png",
+    detailImage: "/images/rst-details-packaging.png",
     colors: [colors.black, colors.gray, colors.taupe, colors.sand, colors.oatmeal, colors.cream],
     sizes: ["S", "M", "L", "XL", "2XL", "3XL"],
     badge: "The first drop",
@@ -102,6 +109,8 @@ export const products: Product[] = [
     ],
     fit: "Easy and gentle with room for movement, layering, and growing.",
     fabric: "95% organic cotton, 5% elastane.",
+    image: "/images/baby-tee.png",
+    detailImage: "/images/rst-details-packaging.png",
     colors: [colors.oatmeal, colors.cream, colors.sand, colors.gray],
     sizes: ["0-3M", "3-6M", "6-12M", "12-18M", "18-24M"],
     badge: "The first drop",
@@ -128,6 +137,8 @@ export const products: Product[] = [
     ],
     fit: "Relaxed and play-ready with enough room to grow.",
     fabric: "100% combed cotton, 6.0 oz.",
+    image: "/images/little-tee.png",
+    detailImage: "/images/rst-details-packaging.png",
     colors: [colors.sand, colors.oatmeal, colors.cream, colors.gray, colors.black],
     sizes: ["2T", "3T", "4T", "5T", "YXS", "YS", "YM", "YL"],
     badge: "The first drop",
@@ -138,10 +149,10 @@ export const products: Product[] = [
 ];
 
 export const collections = [
-  { slug: "mom", name: "Mom", description: "The Mom Tee and its neon heart." },
-  { slug: "dad", name: "Dad", description: "The Dad Tee and its neon mustache." },
-  { slug: "baby", name: "Baby", description: "The Baby Tee and its neon bottle." },
-  { slug: "little", name: "Little", description: "The Little Tee and its neon blocks." },
+  { slug: "mom", name: "Mom", description: "The Mom Tee and its neon heart.", image: "/images/mom-tee.png" },
+  { slug: "dad", name: "Dad", description: "The Dad Tee and its neon mustache.", image: "/images/dad-tee.png" },
+  { slug: "baby", name: "Baby", description: "The Baby Tee and its neon bottle.", image: "/images/baby-tee.png" },
+  { slug: "little", name: "Little", description: "The Little Tee and its neon blocks.", image: "/images/little-tee.png" },
 ];
 
 export function getProduct(slug: string) {

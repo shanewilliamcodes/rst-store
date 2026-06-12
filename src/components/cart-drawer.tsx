@@ -1,11 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { HeartHandshake, Minus, Plus, ShoppingBag, X } from "lucide-react";
 import { formatPrice } from "@/lib/catalog";
 import { siteConfig } from "@/lib/constants";
 import { itemKey, useCart } from "./cart-provider";
-import { TeeMockup } from "./tee-mockup";
 
 export function CartDrawer() {
   const { items, isOpen, setIsOpen, subtotal, updateQuantity, removeItem } = useCart();
@@ -40,8 +40,9 @@ export function CartDrawer() {
                 const key = itemKey(item);
                 return (
                   <div key={key} className="flex gap-4 border-b border-ink/10 py-5">
-                    <Link href={`/products/${item.slug}`} className="flex h-28 w-24 shrink-0 items-center justify-center overflow-hidden rounded-sm bg-oatmeal/30 p-1.5" onClick={() => setIsOpen(false)}>
-                      <TeeMockup color={item.colorHex} accent={item.accent} detailType={item.detailType} snaps={item.snaps} className="h-full w-full" />
+                    <Link href={`/products/${item.slug}`} className="relative h-28 w-24 shrink-0 overflow-hidden rounded-sm bg-oatmeal/30" onClick={() => setIsOpen(false)}>
+                      <Image src={item.image} alt="" fill sizes="96px" className="object-cover" />
+                      <span className="absolute bottom-1.5 right-1.5 h-4 w-4 rounded-full border border-white/80 shadow" style={{ backgroundColor: item.colorHex }} title={item.color} />
                     </Link>
                     <div className="min-w-0 flex-1">
                       <div className="flex justify-between gap-4"><Link href={`/products/${item.slug}`} className="font-semibold hover:underline" onClick={() => setIsOpen(false)}>{item.name}</Link><span className="text-sm">{formatPrice(item.price * item.quantity)}</span></div>

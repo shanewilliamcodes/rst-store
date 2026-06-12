@@ -7,11 +7,11 @@ import { getProduct, products } from "@/lib/catalog";
 import { siteConfig } from "@/lib/constants";
 
 export function generateStaticParams() { return products.map(({ slug }) => ({ slug })); }
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> { const product = getProduct((await params).slug); return product ? { title: product.name, description: product.description } : {}; }
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> { const product = getProduct((await params).slug); return product ? { title: product.name, description: product.description, openGraph: { images: [product.image] } } : {}; }
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const product = getProduct((await params).slug); if (!product) notFound();
   const related = products.filter((item) => item.id !== product.id && item.collections.some((collection) => product.collections.includes(collection))).slice(0, 4);
-  const jsonLd = { "@context": "https://schema.org", "@type": "Product", name: product.name, description: product.description, brand: { "@type": "Brand", name: "RST" }, offers: { "@type": "Offer", priceCurrency: "USD", price: product.price, availability: "https://schema.org/InStock", url: `${siteConfig.url}/products/${product.slug}` } };
+  const jsonLd = { "@context": "https://schema.org", "@type": "Product", name: product.name, image: `${siteConfig.url}${product.image}`, description: product.description, brand: { "@type": "Brand", name: "RST" }, offers: { "@type": "Offer", priceCurrency: "USD", price: product.price, availability: "https://schema.org/InStock", url: `${siteConfig.url}/products/${product.slug}` } };
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />

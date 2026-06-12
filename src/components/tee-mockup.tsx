@@ -28,82 +28,88 @@ function Detail({ type, accent }: { type: DetailType; accent: string }) {
 
 export function TeeMockup({ color, accent, detailType, snaps = false, className = "" }: { color: string; accent: string; detailType: DetailType; snaps?: boolean; className?: string }) {
   const dark = isDark(color);
-  const seam = dark ? lighten(color, 0.14) : darken(color, 0.16);
-  const fold = dark ? darken(color, 0.28) : darken(color, 0.1);
-  const collar = dark ? lighten(color, 0.07) : darken(color, 0.07);
-  const logo = dark ? lighten(color, 0.34) : darken(color, 0.32);
+  const seam = dark ? lighten(color, 0.12) : darken(color, 0.13);
+  const fold = dark ? darken(color, 0.25) : darken(color, 0.08);
+  const collar = dark ? lighten(color, 0.06) : darken(color, 0.06);
+  const logo = dark ? lighten(color, 0.32) : darken(color, 0.3);
   const uid = `tee-${color.replace("#", "")}-${detailType}`;
 
-  const body = "M196 118 C172 120 118 130 92 142 C60 156 44 220 36 252 C34 261 38 268 46 272 L106 295 C114 298 122 295 126 287 L148 246 L150 468 C150 480 158 489 170 490 C216 495 264 495 310 490 C322 489 330 480 330 468 L332 246 L354 287 C358 295 366 298 374 295 L434 272 C442 268 446 261 444 252 C436 220 420 156 388 142 C362 130 308 120 284 118 C276 140 204 140 196 118 Z";
+  const body = "M196 116 C176 118 134 126 110 136 C82 148 62 204 52 240 C50 249 54 257 62 260 L114 280 C122 283 130 280 134 272 L146 240 L146 462 C146 476 154 485 168 486 C214 491 266 491 312 486 C326 485 334 476 334 462 L334 240 L346 272 C350 280 358 283 366 280 L418 260 C426 257 430 249 428 240 C418 204 398 148 370 136 C346 126 304 118 284 116 C276 138 204 138 196 116 Z";
 
   return (
-    <svg viewBox="0 0 480 560" className={className} role="img" aria-label={`Tee preview in selected color with embroidered detail on the chest and RST on the sleeve`}>
+    <svg viewBox="0 0 480 560" className={className} role="img" aria-label="Tee preview in selected color with embroidered detail on the chest and RST on the sleeve">
       <defs>
-        <linearGradient id={`${uid}-shade`} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#ffffff" stopOpacity=".22" />
-          <stop offset=".45" stopColor="#ffffff" stopOpacity="0" />
-          <stop offset="1" stopColor="#000000" stopOpacity=".14" />
+        <linearGradient id={`${uid}-shade`} x1="0" y1="0" x2=".9" y2="1">
+          <stop offset="0" stopColor="#ffffff" stopOpacity=".18" />
+          <stop offset=".5" stopColor="#ffffff" stopOpacity="0" />
+          <stop offset="1" stopColor="#000000" stopOpacity=".12" />
         </linearGradient>
         <filter id={`${uid}-drop`} x="-20%" y="-20%" width="140%" height="140%">
-          <feDropShadow dx="0" dy="14" stdDeviation="16" floodColor="#272924" floodOpacity=".22" />
+          <feDropShadow dx="0" dy="10" stdDeviation="14" floodColor="#272924" floodOpacity=".2" />
         </filter>
+        <filter id={`${uid}-grain`}>
+          <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch" />
+          <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .05 0" />
+        </filter>
+        <clipPath id={`${uid}-clip`}><path d={body} /></clipPath>
       </defs>
 
       <g filter={`url(#${uid}-drop)`}>
         <path d={body} fill={color} />
         <path d={body} fill={`url(#${uid}-shade)`} />
+        <rect width="480" height="560" clipPath={`url(#${uid}-clip)`} filter={`url(#${uid}-grain)`} />
 
         {/* gentle fabric folds */}
-        <g fill="none" stroke={fold} strokeWidth="2" opacity=".3" strokeLinecap="round">
-          <path d="M168 300 C200 312 240 314 268 306" />
-          <path d="M176 380 C214 392 258 390 302 378" />
-          <path d="M160 440 C198 452 250 452 300 442" />
-          <path d="M120 168 C112 196 100 226 88 248" />
-          <path d="M360 168 C368 196 380 226 392 248" />
+        <g fill="none" stroke={fold} strokeWidth="2" opacity=".22" strokeLinecap="round">
+          <path d="M170 300 C204 310 244 312 272 304" />
+          <path d="M178 376 C216 388 260 386 300 374" />
+          <path d="M164 436 C200 448 252 448 298 438" />
+          <path d="M126 164 C118 192 108 220 98 242" />
+          <path d="M354 164 C362 192 372 220 382 242" />
         </g>
 
         {/* shoulder + side seams */}
-        <g fill="none" stroke={seam} strokeWidth="1.6" opacity=".55">
-          <path d="M96 144 C130 134 168 126 196 122" />
-          <path d="M384 144 C350 134 312 126 284 122" />
-          <path d="M148 246 L150 468" />
-          <path d="M332 246 L330 468" />
+        <g fill="none" stroke={seam} strokeWidth="1.5" opacity=".5">
+          <path d="M112 138 C144 130 172 124 196 120" />
+          <path d="M368 138 C336 130 308 124 284 120" />
+          <path d="M146 240 L146 462" />
+          <path d="M334 240 L334 462" />
         </g>
 
         {/* sleeve cuff + bottom hem double stitching */}
-        <g fill="none" stroke={seam} strokeWidth="1.6" strokeDasharray="5 4" opacity=".7">
-          <path d="M52 260 L116 284" />
-          <path d="M56 250 L120 274" />
-          <path d="M428 260 L364 284" />
-          <path d="M424 250 L360 274" />
-          <path d="M156 472 C216 482 264 482 324 472" />
-          <path d="M156 462 C216 472 264 472 324 462" />
+        <g fill="none" stroke={seam} strokeWidth="1.5" strokeDasharray="5 4" opacity=".6">
+          <path d="M68 248 L122 268" />
+          <path d="M72 238 L126 258" />
+          <path d="M412 248 L358 268" />
+          <path d="M408 238 L354 258" />
+          <path d="M152 468 C214 478 266 478 328 468" />
+          <path d="M152 458 C214 468 266 468 328 458" />
         </g>
 
         {/* collar */}
-        <path d="M196 118 C204 140 276 140 284 118 C272 108 208 108 196 118 Z" fill={collar} />
-        <path d="M196 118 C204 140 276 140 284 118" fill="none" stroke={seam} strokeWidth="1.8" opacity=".7" />
-        <path d="M199 124 C208 144 272 144 281 124" fill="none" stroke={seam} strokeWidth="1.4" strokeDasharray="4 3" opacity=".6" />
+        <path d="M196 116 C204 138 276 138 284 116 C272 106 208 106 196 116 Z" fill={collar} />
+        <path d="M196 116 C204 138 276 138 284 116" fill="none" stroke={seam} strokeWidth="1.7" opacity=".65" />
+        <path d="M199 122 C208 142 272 142 281 122" fill="none" stroke={seam} strokeWidth="1.3" strokeDasharray="4 3" opacity=".55" />
 
         {/* baby shoulder snaps */}
         {snaps && (
           <g>
-            {[306, 332, 358].map((x, i) => (
+            {[300, 324, 348].map((x, i) => (
               <g key={x}>
-                <circle cx={x} cy={134 + i * 3} r="7" fill={darken(color, 0.1)} stroke={seam} strokeWidth="1.5" />
-                <circle cx={x} cy={134 + i * 3} r="2.6" fill="none" stroke={seam} strokeWidth="1.4" />
+                <circle cx={x} cy={124 + i * 4} r="6.5" fill={darken(color, 0.08)} stroke={seam} strokeWidth="1.4" />
+                <circle cx={x} cy={124 + i * 4} r="2.4" fill="none" stroke={seam} strokeWidth="1.3" />
               </g>
             ))}
           </g>
         )}
 
         {/* signature neon detail — front chest, wearer's left */}
-        <g transform="translate(286 196) scale(.62)">
+        <g transform="translate(282 188) scale(.55)">
           <Detail type={detailType} accent={accent} />
         </g>
 
         {/* RST embroidery — opposite sleeve, tone on tone */}
-        <text x="84" y="246" transform="rotate(21 84 246)" textAnchor="middle" fontFamily="Georgia, 'Times New Roman', serif" fontSize="15" letterSpacing="2.5" fill={logo}>RST</text>
+        <text x="92" y="232" transform="rotate(21 92 232)" textAnchor="middle" fontFamily="Georgia, 'Times New Roman', serif" fontSize="14" letterSpacing="2.5" fill={logo}>RST</text>
       </g>
     </svg>
   );

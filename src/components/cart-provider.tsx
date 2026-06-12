@@ -8,6 +8,7 @@ export type CartItem = {
   slug: string;
   name: string;
   price: number;
+  image: string;
   detailType: DetailType;
   accent: string;
   snaps?: boolean;
@@ -65,7 +66,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     subtotal: items.reduce((sum, item) => sum + item.price * item.quantity, 0),
     addItem(product, size, color, quantity = 1) {
       const colorHex = product.colors.find((candidate) => candidate.name === color)?.hex ?? product.colors[0].hex;
-      const next: CartItem = { productId: product.id, slug: product.slug, name: product.name, price: product.price, detailType: product.detailType, accent: product.accent, snaps: product.snaps, size, color, colorHex, quantity };
+      const next: CartItem = { productId: product.id, slug: product.slug, name: product.name, price: product.price, image: product.image, detailType: product.detailType, accent: product.accent, snaps: product.snaps, size, color, colorHex, quantity };
       setItems((current) => {
         const existing = current.find((item) => itemKey(item) === itemKey(next));
         if (!existing) return [...current, next];
