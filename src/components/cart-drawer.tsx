@@ -27,7 +27,7 @@ export function CartDrawer() {
             <div className="mb-5 rounded-full bg-oatmeal/35 p-5"><ShoppingBag size={28} strokeWidth={1.5} /></div>
             <h3 className="font-display text-3xl">Your bag is taking it easy.</h3>
             <p className="mt-3 max-w-xs text-sm leading-6 text-ink/65">Fill it with the soft, shape-holding staples you&apos;ll reach for every day.</p>
-            <Link href="/shop" className="button-primary mt-7" onClick={() => setIsOpen(false)}>Shop all comfort</Link>
+            <Link href="/shop" className="button-primary mt-7" onClick={() => setIsOpen(false)}>Meet the four tees</Link>
           </div>
         ) : (
           <>

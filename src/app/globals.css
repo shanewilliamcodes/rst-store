@@ -9,6 +9,11 @@
   --blue: #7c909f;
   --terra: #b5785f;
   --rose: #c9978e;
+  --neon-pink: #ff3fa4;
+  --neon-orange: #ff6a22;
+  --neon-yellow: #fff32b;
+  --neon-lime: #b8ff2c;
+  --neon-aqua: #20e3e3;
 }
 
 @theme inline {
@@ -20,6 +25,11 @@
   --color-dusty-blue: var(--blue);
   --color-terra: var(--terra);
   --color-soft-rose: var(--rose);
+  --color-neon-pink: var(--neon-pink);
+  --color-neon-orange: var(--neon-orange);
+  --color-neon-yellow: var(--neon-yellow);
+  --color-neon-lime: var(--neon-lime);
+  --color-neon-aqua: var(--neon-aqua);
   --font-sans: var(--font-geist-sans);
   --font-display: Georgia, "Times New Roman", serif;
 }

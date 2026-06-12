@@ -1,13 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { Menu, Search, ShoppingBag, X } from "lucide-react";
+import { Menu, ShoppingBag, X } from "lucide-react";
 import { useState } from "react";
 import { Logo } from "./logo";
 import { useCart } from "./cart-provider";
 
 const links = [
-  ["New", "/shop?sort=newest"], ["Shop all", "/shop"], ["Mom", "/collections/women"], ["Dad", "/collections/men"], ["Baby + Kids", "/collections/kids"], ["Matching", "/collections/matching"], ["Our softness", "/our-softness"],
+  ["Home", "/"], ["Shop", "/shop"], ["About Us", "/about"], ["FAQ", "/faq"], ["Contact", "/contact"],
 ];
 
 export function Header() {
@@ -24,7 +24,6 @@ export function Header() {
             {links.map(([label, href]) => <Link key={label} href={href} className="nav-link">{label}</Link>)}
           </nav>
           <div className="flex items-center gap-1">
-            <Link href="/shop" className="rounded-full p-2.5 hover:bg-ink/5" aria-label="Search products"><Search size={20} strokeWidth={1.7} /></Link>
             <button className="relative rounded-full p-2.5 hover:bg-ink/5" onClick={() => setIsOpen(true)} aria-label={`Open cart with ${itemCount} items`}>
               <ShoppingBag size={20} strokeWidth={1.7} />
               {itemCount > 0 && <span className="absolute right-0 top-0 flex h-5 min-w-5 items-center justify-center rounded-full bg-terra px-1 text-[0.62rem] font-bold text-white">{itemCount}</span>}
@@ -37,7 +36,7 @@ export function Header() {
         <nav className="flex flex-col px-6 py-8" aria-label="Mobile navigation">
           {links.map(([label, href]) => <Link key={label} href={href} className="border-b border-ink/10 py-4 font-display text-3xl" onClick={() => setMenuOpen(false)}>{label}</Link>)}
         </nav>
-        <div className="mx-6 rounded-sm bg-sage/20 p-6"><p className="text-xs font-bold uppercase tracking-[0.18em]">Why RST?</p><p className="mt-3 font-display text-2xl">Soft on day one. Still soft on wash fifty.</p></div>
+        <div className="mx-6 rounded-sm bg-sage/15 p-6"><p className="text-xs font-bold uppercase tracking-[0.18em]">RST · Really Soft Tees</p><p className="mt-3 font-display text-2xl">Four tees. Four hidden details. One soft family idea.</p></div>
       </div>}
     </>
   );

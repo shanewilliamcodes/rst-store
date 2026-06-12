@@ -1,6 +1,6 @@
 # RST — Really Soft Tees
 
-Production-ready ecommerce storefront for RST, a premium family lifestyle apparel brand built around durable softness and the promise: **Come home to comfort.**
+Production-ready ecommerce storefront for RST (Really Soft Tees), a family-founded apparel brand launching with four premium tees: The Mom Tee, The Dad Tee, The Baby Tee, and The Little Tee. Each piece includes a subtle hidden neon embroidery detail.
 
 ## Stack
 
