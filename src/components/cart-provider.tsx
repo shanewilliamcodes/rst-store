@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
-import type { DetailType, Product } from "@/lib/catalog";
+import type { Product } from "@/lib/catalog";
 
 export type CartItem = {
   productId: string;
@@ -9,9 +9,6 @@ export type CartItem = {
   name: string;
   price: number;
   image: string;
-  detailType: DetailType;
-  accent: string;
-  snaps?: boolean;
   size: string;
   color: string;
   colorHex: string;
@@ -66,7 +63,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     subtotal: items.reduce((sum, item) => sum + item.price * item.quantity, 0),
     addItem(product, size, color, quantity = 1) {
       const colorHex = product.colors.find((candidate) => candidate.name === color)?.hex ?? product.colors[0].hex;
-      const next: CartItem = { productId: product.id, slug: product.slug, name: product.name, price: product.price, image: product.image, detailType: product.detailType, accent: product.accent, snaps: product.snaps, size, color, colorHex, quantity };
+      const next: CartItem = { productId: product.id, slug: product.slug, name: product.name, price: product.price, image: product.image, size, color, colorHex, quantity };
       setItems((current) => {
         const existing = current.find((item) => itemKey(item) === itemKey(next));
         if (!existing) return [...current, next];

@@ -50,15 +50,13 @@ for (const [productId, entry] of Object.entries(map.products)) {
   mkdirSync(`public/mockups/${slug}`, { recursive: true });
   const seenColors = new Set();
   for (const sv of detail.sync_variants) {
-    const tail = sv.name.includes(" - ") ? sv.name.split(" - ").pop() : sv.name;
-    const rawColor = tail.split(" / ")[0]?.trim();
-    // find this variant's generated preview mockup
     const preview = (sv.files ?? []).find((f) => f.type === "preview" && f.preview_url);
-    if (!rawColor || !preview || seenColors.has(rawColor)) continue;
-    seenColors.add(rawColor);
-    // resolve the RST color name from the sync map keys (already aliased by printful:sync)
+    if (!preview) continue;
+    // Resolve the RST display color from the sync map (correct color|size keys)
     const matched = Object.keys(entry.variants).find((k) => entry.variants[k].syncVariantId === sv.id);
-    const color = matched ? matched.split("|")[0] : rawColor;
+    const color = matched ? matched.split("|")[0] : null;
+    if (!color || seenColors.has(color)) continue;
+    seenColors.add(color);
     const fileName = `${color.toLowerCase().replace(/[^a-z0-9]+/g, "-")}.jpg`;
     const image = await fetch(preview.preview_url);
     if (!image.ok) { console.warn(`  ? download failed for ${sv.name}`); continue; }

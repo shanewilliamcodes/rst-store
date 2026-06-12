@@ -62,7 +62,7 @@ export function ProductConfigurator({ product }: { product: Product }) {
         <p className="mt-4 text-sm text-ink/65"><span className="font-semibold text-ink">Fabric:</span> {product.fabric}</p>
         <div className="mt-5 border-l-2 pl-4" style={{ borderColor: product.accent }}>
           <p className="text-[.65rem] font-bold uppercase tracking-[.14em]">The signature detail</p>
-          <p className="mt-2 text-sm text-ink/60">{product.signatureDetail} RST lives quietly on the opposite sleeve.</p>
+          <p className="mt-2 text-sm text-ink/60">{product.signatureDetail}{product.hasSleeveMark ? " RST lives quietly on the opposite sleeve." : ""}</p>
         </div>
 
         <div className="mt-8">

@@ -1,7 +1,35 @@
 # Printful + Payments Setup — Shane's Checklist
 
-Everything code-side is built and deployed. These are the account/key steps only
-you can do. Total time: ~1–2 hours, mostly in the Printful dashboard.
+## ✅ Status (done together)
+- Printful account + API store **"Really Soft Tees"** connected.
+- All **4 products created via API** (no design tool): Mom & Dad on Comfort
+  Colors 1717 (6 neutral colors, chest heart/mustache + sleeve RST), Little on
+  Comfort Colors 9018 youth (3 colors, chest only), Baby on Bella baby jersey
+  (Cream, chest only).
+- **Real per-color embroidered mockups** pulled into the site — the color
+  preview now shows the actual product per color (`npm run printful:mockups`).
+- Variant map wired so preview → cart → Printful order all agree
+  (`src/data/printful-map.json`).
+
+## ⚠️ Two things that still need YOU
+
+### 1. Rotate the exposed API key (do this now)
+The key was pasted in chat, so treat it as compromised. In Printful →
+**Settings → API**, delete the current token and **create a new one**, paste it
+into `.env.local` (`PRINTFUL_API_KEY=`) and into Vercel env vars. Everything
+keeps working with the new key.
+
+### 2. Pricing changed to avoid losing money
+Embroidery + premium garments cost more than the original prices supported.
+Per-shirt Printful cost (garment + 2 embroideries): Mom/Dad ≈ $21, Little ≈ $18,
+Baby ≈ $15. I set retail to **Mom/Dad $30, Little $28, Baby $24** so each sells
+at a real margin (the old $20/$15 on Little/Baby would have lost money on every
+order). Change any of these in `src/lib/catalog.ts` if you want — just keep them
+above the cost above.
+
+---
+
+## Remaining account/payment steps (only you can do)
 
 ## Why Printful
 
