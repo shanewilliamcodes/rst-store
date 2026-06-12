@@ -1,11 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
-import { Minus, Plus, ShoppingBag, X } from "lucide-react";
+import { HeartHandshake, Minus, Plus, ShoppingBag, X } from "lucide-react";
 import { formatPrice } from "@/lib/catalog";
 import { siteConfig } from "@/lib/constants";
 import { itemKey, useCart } from "./cart-provider";
+import { TeeMockup } from "./tee-mockup";
 
 export function CartDrawer() {
   const { items, isOpen, setIsOpen, subtotal, updateQuantity, removeItem } = useCart();
@@ -40,8 +40,8 @@ export function CartDrawer() {
                 const key = itemKey(item);
                 return (
                   <div key={key} className="flex gap-4 border-b border-ink/10 py-5">
-                    <Link href={`/products/${item.slug}`} className="relative h-28 w-24 shrink-0 overflow-hidden rounded-sm bg-oatmeal/30" onClick={() => setIsOpen(false)}>
-                      <Image src={item.image} alt="" fill sizes="96px" className="object-cover" />
+                    <Link href={`/products/${item.slug}`} className="flex h-28 w-24 shrink-0 items-center justify-center overflow-hidden rounded-sm bg-oatmeal/30 p-1.5" onClick={() => setIsOpen(false)}>
+                      <TeeMockup color={item.colorHex} accent={item.accent} detailType={item.detailType} snaps={item.snaps} className="h-full w-full" />
                     </Link>
                     <div className="min-w-0 flex-1">
                       <div className="flex justify-between gap-4"><Link href={`/products/${item.slug}`} className="font-semibold hover:underline" onClick={() => setIsOpen(false)}>{item.name}</Link><span className="text-sm">{formatPrice(item.price * item.quantity)}</span></div>
@@ -62,6 +62,7 @@ export function CartDrawer() {
             <div className="border-t border-ink/10 bg-white/50 p-6">
               <div className="flex justify-between text-sm"><span>Subtotal</span><strong>{formatPrice(subtotal)}</strong></div>
               <p className="mt-2 text-xs text-ink/55">Shipping and taxes calculated at checkout.</p>
+              <p className="mt-2 flex items-center gap-1.5 text-xs text-ink/55"><HeartHandshake size={13} /> This bag gives {formatPrice(items.reduce((sum, item) => sum + item.quantity, 0) * siteConfig.giving.amountPerTee)} to {siteConfig.giving.shortName}.</p>
               <Link href="/checkout" className="button-primary mt-5 w-full" onClick={() => setIsOpen(false)}>Secure checkout</Link>
             </div>
           </>

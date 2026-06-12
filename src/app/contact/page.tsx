@@ -9,7 +9,7 @@ export default function ContactPage() {
     <div className="page-shell py-16 sm:py-24">
       <p className="eyebrow text-ink/50">RST · Really Soft Tees</p>
       <h1 className="mt-4 max-w-3xl font-display text-5xl leading-tight sm:text-7xl">A real family is on the other side.</h1>
-      <p className="mt-6 max-w-xl text-sm leading-7 text-ink/65">Questions about fit, an order, or one of the tiny hidden details? Write to us. We read every note.</p>
+      <p className="mt-6 max-w-xl text-sm leading-7 text-ink/65">Questions about fit, an order, or one of the tiny signature details? Write to us. We read every note.</p>
       <div className="mt-12 grid gap-4 md:grid-cols-3">
         {[
           [Mail, "General hello", "hello@reallysofttees.com", "mailto:hello@reallysofttees.com"],

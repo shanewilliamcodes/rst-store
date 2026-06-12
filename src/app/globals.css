@@ -59,4 +59,6 @@ button, select { cursor: pointer; }
 .footer-link:hover { color: var(--cream); }
 
 @media (min-width: 768px) { .page-shell { width: min(100% - 4rem, 1440px); } }
+@keyframes fadeIn { from { opacity: 0; transform: scale(.985); } to { opacity: 1; transform: scale(1); } }
+
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } }

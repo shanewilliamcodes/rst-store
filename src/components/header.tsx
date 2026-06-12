@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Menu, ShoppingBag, X } from "lucide-react";
 import { useState } from "react";
 import { Logo } from "./logo";
+import { siteConfig } from "@/lib/constants";
 import { useCart } from "./cart-provider";
 
 const links = [
@@ -15,7 +16,7 @@ export function Header() {
   const { itemCount, setIsOpen } = useCart();
   return (
     <>
-      <div className="bg-ink px-4 py-2.5 text-center text-[0.68rem] font-bold uppercase tracking-[0.16em] text-cream">Free U.S. shipping on orders $75+</div>
+      <div className="bg-ink px-4 py-2.5 text-center text-[0.68rem] font-bold uppercase tracking-[0.16em] text-cream">Free U.S. shipping on orders ${siteConfig.freeShippingThreshold}+ · Every tee gives $1 to {siteConfig.giving.shortName}</div>
       <header className="sticky top-0 z-50 border-b border-ink/10 bg-cream/95 backdrop-blur-md">
         <div className="page-shell flex h-[72px] items-center justify-between">
           <button className="p-2 lg:hidden" onClick={() => setMenuOpen(true)} aria-label="Open menu"><Menu size={22} /></button>
@@ -36,7 +37,7 @@ export function Header() {
         <nav className="flex flex-col px-6 py-8" aria-label="Mobile navigation">
           {links.map(([label, href]) => <Link key={label} href={href} className="border-b border-ink/10 py-4 font-display text-3xl" onClick={() => setMenuOpen(false)}>{label}</Link>)}
         </nav>
-        <div className="mx-6 rounded-sm bg-sage/15 p-6"><p className="text-xs font-bold uppercase tracking-[0.18em]">RST · Really Soft Tees</p><p className="mt-3 font-display text-2xl">Four tees. Four hidden details. One soft family idea.</p></div>
+        <div className="mx-6 rounded-sm bg-sage/15 p-6"><p className="text-xs font-bold uppercase tracking-[0.18em]">RST · Really Soft Tees</p><p className="mt-3 font-display text-2xl">Four signature tees. One soft family idea.</p></div>
       </div>}
     </>
   );

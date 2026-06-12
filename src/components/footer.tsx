@@ -13,7 +13,7 @@ export function Footer() {
         <div><h3 className="footer-heading">Shop</h3><ul className="mt-5 space-y-3">{shop.map(([label, href]) => <li key={label}><Link className="footer-link" href={href}>{label}</Link></li>)}</ul></div>
         <div><h3 className="footer-heading">Here to help</h3><ul className="mt-5 space-y-3">{help.map(([label, href]) => <li key={label}><Link className="footer-link" href={href}>{label}</Link></li>)}</ul></div>
       </div>
-      <div className="page-shell flex flex-col gap-3 border-t border-cream/15 py-6 text-[0.68rem] uppercase tracking-[0.12em] text-cream/45 sm:flex-row sm:items-center sm:justify-between"><p>© {new Date().getFullYear()} Really Soft Tees</p><div className="flex gap-5"><Link href="/privacy">Privacy</Link><Link href="/terms">Terms</Link><Link href="/accessibility">Accessibility</Link></div></div>
+      <div className="page-shell flex flex-col gap-3 border-t border-cream/15 py-6 text-[0.68rem] uppercase tracking-[0.12em] text-cream/45 sm:flex-row sm:items-center sm:justify-between"><p>© {new Date().getFullYear()} Really Soft Tees · Every tee gives $1 to St. Jude</p><div className="flex gap-5"><Link href="/privacy">Privacy</Link><Link href="/terms">Terms</Link><Link href="/accessibility">Accessibility</Link></div></div>
     </footer>
   );
 }

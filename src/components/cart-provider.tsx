@@ -1,16 +1,19 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
-import type { Product } from "@/lib/catalog";
+import type { DetailType, Product } from "@/lib/catalog";
 
 export type CartItem = {
   productId: string;
   slug: string;
   name: string;
   price: number;
-  image: string;
+  detailType: DetailType;
+  accent: string;
+  snaps?: boolean;
   size: string;
   color: string;
+  colorHex: string;
   quantity: number;
 };
 
@@ -28,6 +31,7 @@ type CartContextValue = {
 
 const CartContext = createContext<CartContextValue | null>(null);
 const itemKey = (item: Pick<CartItem, "productId" | "size" | "color">) => `${item.productId}:${item.size}:${item.color}`;
+const STORAGE_KEY = "rst-cart-v2";
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
@@ -37,10 +41,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const timer = window.setTimeout(() => {
       try {
-        const stored = window.localStorage.getItem("rst-cart");
+        const stored = window.localStorage.getItem(STORAGE_KEY);
         if (stored) setItems(JSON.parse(stored));
       } catch {
-        window.localStorage.removeItem("rst-cart");
+        window.localStorage.removeItem(STORAGE_KEY);
       }
       setHydrated(true);
     }, 0);
@@ -48,7 +52,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   useEffect(() => {
-    if (hydrated) window.localStorage.setItem("rst-cart", JSON.stringify(items));
+    if (hydrated) window.localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
   }, [items, hydrated]);
 
   const clearCart = useCallback(() => setItems([]), []);
@@ -60,7 +64,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     itemCount: items.reduce((sum, item) => sum + item.quantity, 0),
     subtotal: items.reduce((sum, item) => sum + item.price * item.quantity, 0),
     addItem(product, size, color, quantity = 1) {
-      const next: CartItem = { productId: product.id, slug: product.slug, name: product.name, price: product.price, image: product.image, size, color, quantity };
+      const colorHex = product.colors.find((candidate) => candidate.name === color)?.hex ?? product.colors[0].hex;
+      const next: CartItem = { productId: product.id, slug: product.slug, name: product.name, price: product.price, detailType: product.detailType, accent: product.accent, snaps: product.snaps, size, color, colorHex, quantity };
       setItems((current) => {
         const existing = current.find((item) => itemKey(item) === itemKey(next));
         if (!existing) return [...current, next];
