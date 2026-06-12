@@ -31,7 +31,7 @@
   --color-neon-lime: var(--neon-lime);
   --color-neon-aqua: var(--neon-aqua);
   --font-sans: var(--font-geist-sans);
-  --font-display: Georgia, "Times New Roman", serif;
+  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
 }
 
 * { box-sizing: border-box; }
@@ -42,16 +42,22 @@ button, select { cursor: pointer; }
 ::selection { background: #84917a; color: #fff; }
 :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 
-.font-display { font-family: Georgia, "Times New Roman", serif; font-weight: 400; letter-spacing: -0.035em; }
+.font-display {
+  font-family: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  font-weight: 430;
+  letter-spacing: -0.015em;
+  font-variation-settings: "SOFT" 75, "WONK" 0;
+  font-optical-sizing: auto;
+}
 .page-shell { width: min(100% - 2rem, 1440px); margin-inline: auto; }
 .eyebrow { font-size: .68rem; font-weight: 750; letter-spacing: .18em; text-transform: uppercase; }
 .nav-link { position: relative; font-size: .7rem; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; }
 .nav-link::after { content: ""; position: absolute; left: 0; right: 100%; bottom: -7px; height: 1px; background: currentColor; transition: right .25s ease; }
 .nav-link:hover::after { right: 0; }
-.button-primary, .button-secondary { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; gap: .55rem; padding: .8rem 1.4rem; font-size: .7rem; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; transition: all .25s ease; }
+.button-primary, .button-secondary { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; gap: .55rem; border-radius: 999px; padding: .8rem 1.7rem; font-size: .7rem; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; transition: background-color .2s ease, color .2s ease, box-shadow .2s ease; }
 .button-primary { background: var(--ink); color: var(--cream); border: 1px solid var(--ink); }
-.button-primary:hover { background: #42443e; transform: translateY(-1px); }
-.button-primary:disabled { cursor: not-allowed; opacity: .55; transform: none; }
+.button-primary:hover { background: #42443e; box-shadow: 0 6px 18px rgb(39 41 36 / .18); }
+.button-primary:disabled { cursor: not-allowed; opacity: .55; box-shadow: none; }
 .button-secondary { border: 1px solid currentColor; color: inherit; }
 .button-secondary:hover { background: var(--ink); border-color: var(--ink); color: var(--cream); }
 .footer-heading { font-size: .68rem; font-weight: 750; letter-spacing: .16em; text-transform: uppercase; }

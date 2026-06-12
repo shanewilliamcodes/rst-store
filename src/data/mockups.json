@@ -1,0 +1,3 @@
+{
+  "$comment": "Per-color photorealistic mockup images, downloaded from Printful by `npm run printful:mockups`. Keyed by product slug, then color name. Empty until Printful is connected."
+}
