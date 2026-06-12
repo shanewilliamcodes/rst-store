@@ -23,7 +23,6 @@ export async function POST(request: Request) {
       line_items: validated.map(({ product, quantity, size, color }) => ({ quantity, price_data: { currency: "usd", unit_amount: product.price * 100, product_data: { name: product.name, description: `${color} / ${size}`, images: [`${siteConfig.url}${product.image}`], metadata: { productId: product.id, size, color } } } })),
       success_url: `${siteConfig.url}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${siteConfig.url}/checkout`,
-      allow_promotion_codes: true,
       automatic_tax: { enabled: true },
       billing_address_collection: "auto",
       shipping_address_collection: { allowed_countries: ["US", "CA"] },

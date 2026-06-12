@@ -91,8 +91,6 @@ orders.
    `https://rst-store-two.vercel.app/api/stripe/webhook`, event
    `checkout.session.completed` → copy signing secret → Vercel env
    `STRIPE_WEBHOOK_SECRET`.
-3. Create the welcome promo: **Products → Coupons** → 15% off once → promotion
-   code `HOME15` (the newsletter already promises this code).
 
 ## 5. Database (5 min, optional but recommended)
 

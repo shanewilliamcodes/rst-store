@@ -9,7 +9,7 @@ export function Footer() {
   return (
     <footer className="bg-ink text-cream">
       <div className="page-shell grid gap-12 py-16 lg:grid-cols-[1.2fr_.7fr_.7fr] lg:py-20">
-        <div><Logo light /><h2 className="mt-8 max-w-md font-display text-4xl leading-tight sm:text-5xl">The softest part of family life.</h2><p className="mt-4 max-w-md text-sm leading-6 text-cream/65">Join Really Soft Tees for first access, family stories, and 15% off your first order.</p><NewsletterForm source="footer" dark /></div>
+        <div><Logo light /><h2 className="mt-8 max-w-md font-display text-4xl leading-tight sm:text-5xl">The softest part of family life.</h2><p className="mt-4 max-w-md text-sm leading-6 text-cream/65">Join Really Soft Tees for first access to new drops and quiet notes from our family to yours.</p><NewsletterForm source="footer" dark /></div>
         <div><h3 className="footer-heading">Shop</h3><ul className="mt-5 space-y-3">{shop.map(([label, href]) => <li key={label}><Link className="footer-link" href={href}>{label}</Link></li>)}</ul></div>
         <div><h3 className="footer-heading">Here to help</h3><ul className="mt-5 space-y-3">{help.map(([label, href]) => <li key={label}><Link className="footer-link" href={href}>{label}</Link></li>)}</ul></div>
       </div>

@@ -9,7 +9,7 @@ export async function POST(request: Request) {
     const db = getDb();
     if (!db) return NextResponse.json({ message: "Newsletter signup is being configured. Please try again soon." }, { status: 503 });
     await db.insert(newsletterSubscribers).values({ email: data.email.toLowerCase(), source: data.source }).onConflictDoNothing();
-    return NextResponse.json({ message: "You’re in. Your 15% welcome code is HOME15." });
+    return NextResponse.json({ message: "You’re in. Welcome to the RST family — we’ll be in touch." });
   } catch (error) {
     if (error instanceof z.ZodError) return NextResponse.json({ message: "Enter a valid email address." }, { status: 400 });
     console.error("Newsletter signup failed", error);
