@@ -8,46 +8,27 @@ import { getMockupUrl } from "@/lib/fulfillment";
 import { siteConfig } from "@/lib/constants";
 import { useCart } from "./cart-provider";
 
-function ColorPreview({ product, colorName }: { product: Product; colorName: string }) {
-  const selected = product.colors.find((item) => item.name === colorName) ?? product.colors[0];
-  const mockup = getMockupUrl(product.slug, selected.name);
-  const photographedColor = product.colors[0].name;
-  return (
-    <div className="relative aspect-square overflow-hidden rounded-lg bg-oatmeal/20">
-      {mockup ? (
-        <Image key={mockup} src={mockup} alt={`${product.name} in ${selected.name}`} fill sizes="(max-width:640px) 100vw, 30vw" className="animate-[fadeIn_.35s_ease] object-cover" />
-      ) : (
-        <Image src={product.image} alt={`${product.name} studio photo in ${photographedColor}`} fill sizes="(max-width:640px) 100vw, 30vw" className="object-cover" style={{ objectPosition: product.imagePosition ?? "center" }} />
-      )}
-      <div className="absolute bottom-3 left-3 right-3 flex items-center gap-2 rounded-full bg-cream/95 px-3.5 py-2 shadow-sm">
-        <span className="h-4 w-4 shrink-0 rounded-full border border-ink/15" style={{ backgroundColor: selected.hex }} />
-        <span className="truncate text-[.68rem] font-semibold text-ink/80">
-          {mockup ? selected.name : selected.name === photographedColor ? selected.name : `Selected: ${selected.name} · photo shows ${photographedColor}`}
-        </span>
-      </div>
-    </div>
-  );
-}
-
 export function ProductConfigurator({ product }: { product: Product }) {
   const [color, setColor] = useState(product.colors[0].name);
   const [size, setSize] = useState(product.sizes[0]);
   const [quantity, setQuantity] = useState(1);
   const { addItem } = useCart();
 
+  const selected = product.colors.find((item) => item.name === color) ?? product.colors[0];
+  const heroSrc = getMockupUrl(product.slug, selected.name) ?? product.image;
+
   return (
     <div className="grid gap-8 lg:grid-cols-[1.15fr_.85fr] lg:gap-16">
-      <div className="grid gap-3 sm:grid-cols-2">
-        <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-oatmeal/25 sm:col-span-2">
-          <Image src={product.image} alt={`${product.name} with its embroidered RST signature detail`} fill priority sizes="(max-width:1024px) 100vw, 60vw" className="object-cover" style={{ objectPosition: product.imagePosition ?? "center" }} />
+      <div className="lg:sticky lg:top-28 lg:self-start">
+        <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-oatmeal/25">
+          <Image key={heroSrc} src={heroSrc} alt={`${product.name} in ${selected.name}`} fill priority sizes="(max-width:1024px) 100vw, 55vw" className="animate-[fadeIn_.4s_ease] object-cover" style={{ objectPosition: product.imagePosition ?? "center" }} />
+          <span className="absolute bottom-4 left-4 flex items-center gap-2 rounded-full bg-cream/90 px-3.5 py-2 text-[.68rem] font-semibold text-ink/75 shadow-sm">
+            <span className="h-3.5 w-3.5 rounded-full border border-ink/15" style={{ backgroundColor: selected.hex }} />
+            {selected.name}
+          </span>
         </div>
-        <ColorPreview product={product} colorName={color} />
-        <div className="flex aspect-square items-center justify-center rounded-lg bg-sage/15 p-8">
-          <div className="text-center">
-            <HeartHandshake size={30} strokeWidth={1.4} className="mx-auto" />
-            <p className="mt-5 font-display text-3xl">Every tee gives.</p>
-            <p className="mt-3 text-xs leading-5 text-ink/55">{formatPrice(siteConfig.giving.amountPerTee)} from every tee goes to {siteConfig.giving.name}.</p>
-          </div>
+        <div className="mt-3 flex items-center justify-center gap-3 rounded-lg bg-sage/15 px-4 py-3 text-center text-xs text-ink/65">
+          <HeartHandshake size={16} strokeWidth={1.5} /> {formatPrice(siteConfig.giving.amountPerTee)} from this tee goes to {siteConfig.giving.name}.
         </div>
       </div>
 
@@ -60,17 +41,13 @@ export function ProductConfigurator({ product }: { product: Product }) {
         </div>
         <p className="mt-6 text-sm leading-7 text-ink/65">{product.description}</p>
         <p className="mt-4 text-sm text-ink/65"><span className="font-semibold text-ink">Fabric:</span> {product.fabric}</p>
-        <div className="mt-5 border-l-2 pl-4" style={{ borderColor: product.accent }}>
-          <p className="text-[.65rem] font-bold uppercase tracking-[.14em]">The signature detail</p>
-          <p className="mt-2 text-sm text-ink/60">{product.signatureDetail}{product.hasSleeveMark ? " RST lives quietly on the opposite sleeve." : ""}</p>
-        </div>
 
         <div className="mt-8">
           <fieldset>
             <legend className="flex w-full justify-between text-xs font-bold uppercase tracking-[0.14em]"><span>Color</span><span className="normal-case tracking-normal text-ink/55">{color}</span></legend>
             <div className="mt-3 flex flex-wrap gap-3">
               {product.colors.map((item) => (
-                <button key={item.name} onClick={() => setColor(item.name)} className={`flex h-10 w-10 items-center justify-center rounded-full border-2 transition ${color === item.name ? "" : "border-transparent hover:border-ink/30"}`} style={color === item.name ? { borderColor: product.accent } : undefined} aria-label={`Preview ${item.name}`} aria-pressed={color === item.name}>
+                <button key={item.name} onClick={() => setColor(item.name)} className={`flex h-10 w-10 items-center justify-center rounded-full border-2 transition ${color === item.name ? "border-ink" : "border-transparent hover:border-ink/30"}`} aria-label={`Show ${item.name}`} aria-pressed={color === item.name}>
                   <span className="h-7 w-7 rounded-full border border-ink/10" style={{ backgroundColor: item.hex }}>{color === item.name && <Check className="m-auto h-full w-3.5 text-white drop-shadow" />}</span>
                 </button>
               ))}
@@ -80,7 +57,7 @@ export function ProductConfigurator({ product }: { product: Product }) {
             <legend className="flex w-full justify-between text-xs font-bold uppercase tracking-[0.14em]"><span>Size</span><a href="/size-guide" className="normal-case tracking-normal text-ink/55 underline underline-offset-2 hover:text-ink">Size guide</a></legend>
             <div className="mt-3 grid grid-cols-4 gap-2 sm:grid-cols-5">
               {product.sizes.map((item) => (
-                <button key={item} onClick={() => setSize(item)} className={`min-h-11 rounded-md border px-2 text-xs font-semibold transition ${size === item ? "border-ink bg-ink text-cream" : "border-ink/15 hover:border-ink/50"}`} aria-pressed={size === item}>{item}</button>
+                <button key={item} onClick={() => setSize(item)} className={`min-h-11 rounded-md border px-2 text-xs font-semibold uppercase transition ${size === item ? "border-ink bg-ink text-cream" : "border-ink/15 hover:border-ink/50"}`} aria-pressed={size === item}>{item}</button>
               ))}
             </div>
           </fieldset>
