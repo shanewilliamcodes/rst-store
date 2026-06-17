@@ -5,14 +5,6 @@ import { formatPrice, products } from "@/lib/catalog";
 import { siteConfig } from "@/lib/constants";
 import { ProductCard } from "@/components/product-card";
 import { NewsletterForm } from "@/components/newsletter-form";
-import { SignatureIcon } from "@/components/signature-icon";
-
-const details = [
-  { type: "heart" as const, color: "#ff3fa4", label: "Mom", copy: "A small neon heart on the chest." },
-  { type: "mustache" as const, color: "#ff6a22", label: "Dad", copy: "A small neon mustache on the chest." },
-  { type: "bottle" as const, color: "#20e3e3", label: "Baby", copy: "A tiny neon bottle on the chest." },
-  { type: "blocks" as const, color: "#b8ff2c", label: "Little", copy: "Tiny neon ABC blocks on the chest." },
-];
 
 export default function HomePage() {
   return (
@@ -24,20 +16,20 @@ export default function HomePage() {
           <div className="max-w-2xl text-cream">
             <p className="eyebrow">RST · Really Soft Tees</p>
             <h1 className="mt-5 font-display text-[3.6rem] leading-[.93] sm:text-7xl lg:text-[6.4rem]">Soft enough<br />to feel like home.</h1>
-            <p className="mt-6 max-w-lg text-sm leading-7 text-cream/85 sm:text-base">Four exceptionally soft family tees to start. Each one signed with a subtle neon detail on the chest and RST on the sleeve.</p>
+            <p className="mt-6 max-w-lg text-sm leading-7 text-cream/85 sm:text-base">Four exceptionally soft, garment-dyed family tees to start — each finished with the RST monogram embroidered tone-on-tone on the chest.</p>
             <div className="mt-8 flex flex-wrap gap-3"><Link href="/shop" className="button-primary !border-cream !bg-cream !text-ink hover:!bg-white">Meet the four</Link><Link href="/about" className="button-secondary">Our family story</Link></div>
           </div>
         </div>
       </section>
 
-      <section className="border-b border-ink/10"><div className="page-shell grid grid-cols-2 divide-x divide-y divide-ink/10 md:grid-cols-4 md:divide-y-0">{[[Sparkles,"Really soft, actually"],[Wand2,"Subtle neon signatures"],[RefreshCw,"Shrink-resistant"],[HeartHandshake,"Every tee gives $1"]].map(([Icon,label])=>{const Comp=Icon as typeof Sparkles;return <div key={label as string} className="flex items-center justify-center gap-2 px-3 py-5 text-center text-[.62rem] font-bold uppercase tracking-[.12em]"><Comp size={15}/>{label as string}</div>})}</div></section>
+      <section className="border-b border-ink/10"><div className="page-shell grid grid-cols-2 divide-x divide-y divide-ink/10 md:grid-cols-4 md:divide-y-0">{[[Sparkles,"Really soft, actually"],[Wand2,"Embroidered RST monogram"],[RefreshCw,"Pre-shrunk, garment-dyed"],[HeartHandshake,"Every tee gives $1"]].map(([Icon,label])=>{const Comp=Icon as typeof Sparkles;return <div key={label as string} className="flex items-center justify-center gap-2 px-3 py-5 text-center text-[.62rem] font-bold uppercase tracking-[.12em]"><Comp size={15}/>{label as string}</div>})}</div></section>
 
       <section className="page-shell py-20 sm:py-28">
         <div className="mb-10 max-w-3xl"><p className="eyebrow text-ink/50">The first drop · The signature four</p><h2 className="mt-4 font-display text-5xl leading-tight sm:text-7xl">One for every person who makes home.</h2><p className="mt-5 max-w-xl text-sm leading-7 text-ink/60">We started with four fit-tested tees, made from premium cotton and designed to live together. More is coming, but it all begins here.</p></div>
         <div className="grid grid-cols-2 gap-x-3 gap-y-10 sm:gap-x-6 lg:grid-cols-4">{products.map((product)=><ProductCard key={product.id} product={product}/>)}</div>
       </section>
 
-      <section className="bg-ink text-cream"><div className="page-shell grid items-center gap-12 py-20 lg:grid-cols-2 lg:py-28"><div className="relative aspect-square overflow-hidden rounded-sm"><Image src="/images/rst-details-packaging.png" alt="RST Really Soft Tees embroidered signature details, labels, hang tags, and packaging" fill sizes="(max-width:1024px) 100vw, 50vw" className="object-cover" /></div><div className="lg:pl-10"><p className="eyebrow text-cream/55">Look a little closer</p><h2 className="mt-4 font-display text-5xl leading-tight sm:text-7xl">Our signature stays subtle.</h2><p className="mt-5 max-w-lg text-sm leading-7 text-cream/65">Most branding shouts. Ours doesn&apos;t. Every Really Soft Tee carries a small embroidered detail on the chest in a bright little flash of neon, with RST stitched tone-on-tone into the opposite sleeve.</p><div className="mt-9 grid grid-cols-2 gap-3">{details.map((detail)=><div key={detail.label} className="border border-cream/15 p-4"><SignatureIcon type={detail.type} color={detail.color} className="h-7 w-7"/><p className="mt-4 text-xs font-bold uppercase tracking-[.14em]">{detail.label}</p><p className="mt-2 text-xs leading-5 text-cream/55">{detail.copy}</p></div>)}</div></div></div></section>
+      <section className="bg-ink text-cream"><div className="page-shell grid items-center gap-12 py-20 lg:grid-cols-2 lg:py-28"><div className="relative aspect-square overflow-hidden rounded-sm"><Image src="/images/rst-details-packaging.png" alt="RST Really Soft Tees embroidered signature details, labels, hang tags, and packaging" fill sizes="(max-width:1024px) 100vw, 50vw" className="object-cover" /></div><div className="lg:pl-10"><p className="eyebrow text-cream/55">Look a little closer</p><h2 className="mt-4 font-display text-5xl leading-tight sm:text-7xl">Our monogram, quietly done.</h2><p className="mt-5 max-w-lg text-sm leading-7 text-cream/65">Most branding shouts. Ours doesn&apos;t. Every Really Soft Tee carries the RST monogram embroidered tone-on-tone on the chest — stitched, not printed, in a thread shade that sits close to the garment.</p><div className="mt-9 grid grid-cols-3 gap-3">{[["Stitched","Real embroidery, not a print"],["Tonal","Thread close to the garment color"],["Built in","On every tee, every color"]].map(([t,d])=><div key={t} className="border border-cream/15 p-4"><p className="text-xs font-bold uppercase tracking-[.14em]">{t}</p><p className="mt-2 text-xs leading-5 text-cream/55">{d}</p></div>)}</div></div></div></section>
 
       <section className="page-shell grid items-center gap-12 py-20 lg:grid-cols-[.8fr_1.2fr] lg:py-28"><div><p className="eyebrow text-ink/50">Riley · Shane · Tori</p><h2 className="mt-4 font-display text-5xl leading-tight sm:text-7xl">Really Soft Tees is a family name.</h2><p className="mt-6 max-w-lg text-sm leading-7 text-ink/65">RST stands for Really Soft Tees. Quietly, it also stands for Riley, Shane, and Tori, the family behind the idea. We started with the shirt everyone wanted to change into, then made it softer, more dependable, and more personal.</p><Link href="/about" className="button-secondary mt-8">About us <ArrowRight size={15}/></Link></div><div className="rounded-sm bg-oatmeal/20 p-8 sm:p-12"><p className="font-display text-4xl leading-tight sm:text-6xl">“Clothing that feels like quality time: easy, familiar, and better when you&apos;re together.”</p><p className="mt-6 text-xs font-bold uppercase tracking-[.16em] text-ink/50">The RST idea</p></div></section>
 

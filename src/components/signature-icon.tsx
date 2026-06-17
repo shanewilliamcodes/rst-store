@@ -1,6 +1,0 @@
-export function SignatureIcon({ type, color, className = "h-8 w-8" }: { type: "heart" | "mustache" | "bottle" | "blocks"; color: string; className?: string }) {
-  if (type === "heart") return <svg viewBox="0 0 48 48" className={className} aria-hidden="true"><path d="M24 39S7 29 7 16.5C7 10.7 14.1 7.7 18 12c2.4-4.6 11.6-4.6 14 0 3.9-4.3 9.9-1.3 9.9 4.5C42 29 24 39 24 39Z" fill={color} /></svg>;
-  if (type === "mustache") return <svg viewBox="0 0 48 48" className={className} aria-hidden="true"><path d="M24 27c-4-8-10-8-12-3-1.5-4-8-3-8 2 0 8 12 11 20 3 8 8 20 5 20-3 0-5-6.5-6-8-2-2-5-8-5-12 3Z" fill={color} /></svg>;
-  if (type === "bottle") return <svg viewBox="0 0 48 48" className={className} aria-hidden="true"><path d="M19 7h10v6l4 5v20c0 2-2 4-4 4H19c-2 0-4-2-4-4V18l4-5V7Zm-1 17h12" fill="none" stroke={color} strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" /></svg>;
-  return <svg viewBox="0 0 54 48" className={className} aria-hidden="true"><rect x="2" y="15" width="18" height="18" rx="2" fill="#b8ff2c"/><rect x="18" y="8" width="18" height="18" rx="2" fill="#fff32b"/><rect x="34" y="17" width="18" height="18" rx="2" fill="#ff3fa4"/><text x="8" y="29" fontSize="11" fontWeight="800">A</text><text x="23" y="21" fontSize="11" fontWeight="800">B</text><text x="39" y="30" fontSize="11" fontWeight="800">C</text></svg>;
-}
