@@ -19,40 +19,37 @@ async function pf(path, init) {
   return b.result;
 }
 
-const NOTES = "Please match embroidery thread to the artwork colors using the closest bright/fluorescent thread available. Keep details crisp; scale up slightly if too small to stitch cleanly.";
+const NOTES = "Embroider the RST monogram crisply on the chest, tone-on-tone. Center it cleanly within the placement area.";
 
-// Embroidery threads must come from Printful's fixed palette (allowed values
-// returned by the API). Closest bright matches to our neon brand colors:
-const SLEEVE_THREAD = ["#96A1A8"]; // soft gray, subtle tone-on-tone RST
+// Single fixed brand monogram on every tee, embroidered tone-on-tone in soft
+// gray (from Printful's fixed thread palette). chest_left where supported;
+// the infant garment only offers chest_center.
+const MONO = (placement) => ({ type: placement, url: BASE + "rst-monogram.png", threads: ["#96A1A8"] });
 
 const CONFIGS = {
   mom: {
     name: "The Mom Tee", catalogId: 586, price: "30.00",
     colors: ["Ivory", "Hemp", "Khaki", "Granite", "Grey", "Pepper"],
     sizes: ["S", "M", "L", "XL", "2XL", "3XL"],
-    chest: { type: "embroidery_chest_left", url: BASE + "signature-mom-heart.png", threads: ["#CC3366"] },
-    sleeve: { type: "embroidery_sleeve_right_top", url: BASE + "rst-sleeve-mark.png", threads: SLEEVE_THREAD },
+    chest: MONO("embroidery_chest_left"), sleeve: null,
   },
   dad: {
     name: "The Dad Tee", catalogId: 586, price: "30.00",
     colors: ["Pepper", "Grey", "Granite", "Khaki", "Hemp", "Ivory"],
     sizes: ["S", "M", "L", "XL", "2XL", "3XL"],
-    chest: { type: "embroidery_chest_left", url: BASE + "signature-dad-mustache.png", threads: ["#E25C27"] },
-    sleeve: { type: "embroidery_sleeve_right_top", url: BASE + "rst-sleeve-mark.png", threads: SLEEVE_THREAD },
+    chest: MONO("embroidery_chest_left"), sleeve: null,
   },
   little: {
     name: "The Little Tee", catalogId: 1485, price: "20.00",
     colors: ["White", "Pepper", "Chambray"],
-    sizes: null, // all available youth sizes
-    chest: { type: "embroidery_chest_left", url: BASE + "signature-little-abc.png", threads: ["#7BA35A", "#FFCC00", "#CC3366", "#000000"] },
-    sleeve: null, // youth garment has no sleeve placement
+    sizes: null,
+    chest: MONO("embroidery_chest_left"), sleeve: null,
   },
   baby: {
     name: "The Baby Tee", catalogId: 305, price: "15.00",
-    colors: null, // pick neutrals from whatever the baby garment offers
+    colors: null,
     sizes: null,
-    chest: { type: "embroidery_chest_center", url: BASE + "signature-baby-bottle.png", threads: ["#3399FF"] },
-    sleeve: null,
+    chest: MONO("embroidery_chest_center"), sleeve: null,
   },
 };
 
