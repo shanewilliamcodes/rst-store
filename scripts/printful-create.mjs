@@ -59,6 +59,13 @@ const CONFIGS = {
 async function createProduct(target) {
   const cfg = CONFIGS[target];
   if (!cfg) throw new Error("Unknown target " + target);
+
+  // Replace-safe: delete an existing product with the same name first.
+  const existing = await pf("/store/products?limit=100");
+  for (const p of existing) {
+    if (p.name === cfg.name) { await pf("/store/products/" + p.id, { method: "DELETE" }); console.log(`  (removed old "${cfg.name}" #${p.id})`); }
+  }
+
   const detail = await pf("/products/" + cfg.catalogId);
   const available = detail.variants;
   const allColors = [...new Set(available.map((v) => v.color))];
